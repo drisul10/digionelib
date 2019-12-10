@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 08, 2019 at 12:58 PM
+-- Generation Time: Dec 10, 2019 at 05:03 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.11
 
@@ -33,7 +33,7 @@ CREATE TABLE `buku` (
   `judul_buku` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pengarang` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tahun` year(4) NOT NULL,
-  `kategori` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori` int(11) NOT NULL,
   `penerbit` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lokasi_rak` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -49,9 +49,20 @@ CREATE TABLE `ebook` (
   `judul_buku` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pengarang` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tahun` year(4) NOT NULL,
-  `kategori` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori` int(11) NOT NULL,
   `penerbit` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_file` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kategori`
+--
+
+CREATE TABLE `kategori` (
+  `id_kategori` int(11) NOT NULL,
+  `nama_kategori` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -108,13 +119,21 @@ CREATE TABLE `pengguna` (
 -- Indexes for table `buku`
 --
 ALTER TABLE `buku`
-  ADD PRIMARY KEY (`kode_buku`);
+  ADD PRIMARY KEY (`kode_buku`),
+  ADD KEY `kategori` (`kategori`);
 
 --
 -- Indexes for table `ebook`
 --
 ALTER TABLE `ebook`
-  ADD PRIMARY KEY (`kode_buku`);
+  ADD PRIMARY KEY (`kode_buku`),
+  ADD KEY `t_kategori` (`kategori`);
+
+--
+-- Indexes for table `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id_kategori`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -154,6 +173,12 @@ ALTER TABLE `ebook`
   MODIFY `kode_buku` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
@@ -162,6 +187,18 @@ ALTER TABLE `peminjaman`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `buku`
+--
+ALTER TABLE `buku`
+  ADD CONSTRAINT `t_kategori_` FOREIGN KEY (`kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `ebook`
+--
+ALTER TABLE `ebook`
+  ADD CONSTRAINT `t_kategori` FOREIGN KEY (`kategori`) REFERENCES `kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `peminjaman`
