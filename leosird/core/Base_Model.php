@@ -34,6 +34,11 @@ class Base_Model {
 
 		return false;
 	}
+
+	public function get_only_col($col_name)
+    {
+        return $this->query("SELECT $col_name FROM $this->table WHERE $this->field_is_deleted='0' ORDER BY $this->field_updated_at DESC")->fetchAll();
+	}
 	
 	public function drop($id)
     {

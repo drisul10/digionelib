@@ -31,6 +31,25 @@ class Model_Digilib extends Base_Model
         parent::__construct();
     }
 
+    public function get_by_ctg($ctg_id)
+    {
+        return $this->query("SELECT * FROM $this->table WHERE $this->field_kategori='$ctg_id' ORDER BY $this->field_updated_at")->fetchAll();
+    }
+
+    public function get_by_search($q)
+    {
+        return $this->query("SELECT * FROM $this->table
+            WHERE $this->field_judul LIKE '%$q%'
+            OR $this->field_pengarang LIKE '%$q%'
+            OR $this->field_penerbit LIKE '%$q%'
+            ORDER BY $this->field_updated_at")->fetchAll();
+    }
+
+    public function get_limit($limit)
+    {
+        return $this->query("SELECT * FROM $this->table WHERE $this->field_is_deleted='0' ORDER BY $this->field_updated_at DESC LIMIT $limit")->fetchAll();
+    }
+
     public function find_kode_one($kode)
     {
         return $this->query("SELECT $this->field_kode FROM $this->table WHERE $this->field_kode='$kode'")->numRows();

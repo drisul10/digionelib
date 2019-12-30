@@ -1,15 +1,11 @@
 <?php
 use config\Url;
 
-if (!empty($_GET['c']))
-    $c = $_GET['c'];
-else
-    $c = '';
+// get controller name to request
+$c = (!empty($_GET['c']) ? $_GET['c'] : '');
 
-if (!empty($_GET['r']))
-    $r = $_GET['r'];
-else
-    $r = '';
+// get route name to request
+$r = (!empty($_GET['r']) ? $_GET['r'] : '');
 
 ?>
 
@@ -120,7 +116,7 @@ else
                         </a>
                         <ul class="treeview-menu">
                             <li class=""><a href="#"><i class="fa fa-circle-o"></i>Pustaka</a></li>
-                            <li class="<?= ($r === Url::RNAME_INDEX ? "active" : "") ?>"><a
+                            <li class="<?= ($c === Url::CNAME_BACK_DIGILIB ? "active" : "") ?>"><a
                                     href="<?=Url::BACK_DIGILIB_INDEX;?>"><i class="fa fa-circle-o"></i>Digital
                                     Library</a>
                             </li>
@@ -134,8 +130,12 @@ else
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class=""><a href="#"><i class="fa fa-circle-o"></i>Peminjaman</a></li>
-                            <li class=""><a href="#"><i class="fa fa-circle-o"></i>Pengembalian</a></li>
+                            <li class="">
+                                <a href="#"><i class="fa fa-circle-o"></i>Peminjaman</a>
+                            </li>
+                            <li class="">
+                                <a href="#"><i class="fa fa-circle-o"></i>Pengembalian</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="<?= ($c === Url::CNAME_BACK_ANGGOTA ? "active" : "") ?>">
@@ -148,10 +148,21 @@ else
                             <i class="fa fa-user"></i> <span>Pengguna</span>
                         </a>
                     </li>
-                    <li class="">
+                    <li class="treeview <?= (($c === Url::CNAME_BACK_LAPORAN_PEMINJAMAN ) || ($c === Url::CNAME_BACK_LAPORAN_PENGEMBALIAN) ? "active" : "") ?>">
                         <a href="#">
-                            <i class="fa fa-book"></i> <span>Laporan</span>
+                            <i class="fa fa-exchange"></i> <span>Laporan</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
+                        <ul class="treeview-menu">
+                            <li class="<?= ($c === Url::CNAME_BACK_LAPORAN_PEMINJAMAN ? "active" : "") ?>">
+                                <a href="<?=Url::BACK_LAPORAN_PEMINJAMAN_INDEX;?>"><i class="fa fa-circle-o"></i>Peminjaman</a>
+                            </li>
+                            <li class="<?= ($c === Url::CNAME_BACK_LAPORAN_PENGEMBALIAN ? "active" : "") ?>">
+                                <a href="<?=Url::BACK_LAPORAN_PENGEMBALIAN_INDEX;?>"><i class="fa fa-circle-o"></i>Pengembalian</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </section>

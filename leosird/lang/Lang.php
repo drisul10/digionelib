@@ -8,6 +8,8 @@ class Lang {
     const ERR_CODE_UNKNOWN_DATA = 'unknown_data';
     const ERR_MESSAGE_UNKNOWN_DATA = 'Data tidak diketahui';
 
+    const RECORD_EMPTY = 'Untuk saat ini data masih kosong';
+
     const ERR_CODE_INSERT_TO_DB = 'unable_insert';
     const ERR_MESSAGE_INSERT_TO_DB = 'Terjadi kesalahan pada sistem, gagal menyimpan data';
     const ERR_CODE_UPDATE_TO_DB = 'unable_update';
