@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# add a trailing slash if leosird/$1 is a directory
+RewriteCond %{DOCUMENT_ROOT}/leosird$1 -d
+RewriteRule ^(.*[^/])$ %{REQUEST_URI}/ [L,R=301,NE]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(?!leosird/public)(.*)$ leosird/$1 [L,NC]

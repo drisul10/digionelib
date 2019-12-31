@@ -47,6 +47,11 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <link rel="shortcut icon" href="<?= $base_url ?>logo.ico" type="image/x-icon">
+  <style>
+    .dataTables_length,.dataTables_info{
+      text-align: left;
+    }
+  </style>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 
@@ -57,7 +62,7 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
       <nav class="navbar navbar-static-top">
         <div class="container">
           <div class="navbar-header">
-            <a href="<?= $base_url ?>" class="navbar-brand"><b>DIGIONELIB</b></a>
+            <a href="<?= $base_url.'?page=beranda&t=f' ?>" class="navbar-brand"><b>DIGIONELIB</b></a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
               <i class="fa fa-bars"></i>
             </button>
@@ -68,26 +73,26 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
             <ul class="nav navbar-nav">
 
               <li class="dropdown <?php if (isset($_GET['page'])) {
-                                    if ($_GET['page'] == 'pustaka_buku' || $_GET['page'] == 'digital_library') {
-                                      echo 'active';
-                                    }
-                                  } ?>">
+                    if ($_GET['page'] == 'pustaka_buku' || $_GET['page'] == 'digital_library') {
+                      echo 'active';
+                    }
+                  } ?>">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buku <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="<?=$base_url. '?page=pustaka_buku'?>">Pustaka Buku</a></li>
-                  <li><a href="<?=$base_url. '?page=digital_library'?>">Digital Library</a></li>
+                  <li><a href="<?=$base_url. '?page=pustaka_buku&t=f'?>">Pustaka Buku</a></li>
+                  <!-- <li><a href="<?=$base_url. '?page=digital_library&t=f'?>">Digital Library</a></li> -->
                 </ul>
               </li>
               <li class=" <?php if (isset($_GET['page'])) {
                             if ($_GET['page'] == 'peminjaman') {
                               echo 'active';
                             }
-                          } ?>"><a href="<?=$base_url.'?page=peminjaman'?>">Peminjaman</a></li>
+                          } ?>"><a href="<?=$base_url.'?page=peminjaman&t=f'?>">Peminjaman</a></li>
               <li class=" <?php if (isset($_GET['page'])) {
                             if ($_GET['page'] == 'pengembalian') {
                               echo 'active';
                             }
-                          } ?>"><a href="<?=$base_url.'?page=pengembalian'?>">Pengembalian</a></li>
+                          } ?>"><a href="<?=$base_url.'?page=pengembalian&t=f'?>">Pengembalian</a></li>
             </ul>
             <!-- <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
@@ -104,7 +109,6 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
                 <!-- Menu Toggle Button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- The user image in the navbar-->
-                  <img src="<?= $base_url ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
                   <span class="hidden-xs">
 
@@ -112,7 +116,7 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
                     if (isset($_SESSION['username'])) {
                       echo ucwords($_SESSION['username']);
                     } else {
-                      echo "Alexander Pierce";
+                      echo "Muhammad Faisal Qomarudin";
                     }
                     ?>
                   </span>
@@ -127,7 +131,7 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
                       if (isset($_SESSION['username'])) {
                         echo ucwords($_SESSION['username']);
                       } else {
-                        echo "Alexander Pierce";
+                        echo "Muhammad Faisal Qomarudin";
                       }
                       ?>
                       <!-- <small>Member since Nov. 2012</small> -->
@@ -149,11 +153,11 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
                   </li> -->
                   <!-- Menu Footer-->
                   <li class="user-footer">
-                    <div class="pull-left">
+                    <!-- <div class="pull-left">
                       <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
+                    </div> -->
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="<?=$base_url.'login/admin/logout.php'?>" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -183,10 +187,10 @@ $base_url = "http://" . $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_S
           <ol class="breadcrumb">
             <?php
             if (isset($_GET['page'])) {
-              echo '<li><a href="#"><i class="fa fa-dashboard"></i> Beranda</a></li>';
-              echo ' <li class="active">' . ucwords(str_replace('_', '', $_GET['page'])) . '</li>';
+              echo '<li><a href="index.php"><i class="fa fa-dashboard"></i> Beranda</a></li>';
+              echo ' <li class="active">' . ucwords(str_replace('_', ' ', $_GET['page'])) . '</li>';
             } else {
-              echo '<li><a href="#"><i class="fa fa-dashboard"></i> Beranda</a></li>';
+              echo '<li><a href="index.php"><i class="fa fa-dashboard"></i> Beranda</a></li>';
             }
             ?>
 

@@ -26,6 +26,8 @@
 <!-- DataTables -->
 <script src="<?=$base_url?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?=$base_url?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?=$base_url?>bower_components/datatables.net-bs/js/dataTables.keyTable.min.js"></script>
+
 <!-- Morris.js charts -->
 <script src="<?=$base_url?>bower_components/raphael/raphael.min.js"></script>
 <script src="<?=$base_url?>bower_components/morris.js/morris.min.js"></script>
@@ -50,6 +52,10 @@
 <!-- AdminLTE App -->
 <script src="<?=$base_url?>dist/js/adminlte.min.js"></script>
 <script src="<?=$base_url?>bower_components/sweetalert/sweetalert2.all.min.js"></script>
+<script src="<?=$base_url?>bower_components/select2/dist/js/select2.full.min.js"></script>
 
+<?php if (isset($datatables)) {
+  echo $datatables;
+} ?>
 </body>
 </html>

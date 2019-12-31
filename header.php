@@ -1,5 +1,9 @@
 <?php 
-    $base_url="http://".$_SERVER['HTTP_HOST'].str_replace('index.php','',$_SERVER['PHP_SELF']);
+// session_start();
+// if (!$_SESSION['username']) {
+//     header('Location: '.$base_url.'login/login.php');
+// }
+    $base_url="http://".$_SERVER['HTTP_HOST'].'/digionelib/';
  ?>
 <!DOCTYPE html>
 <html>
@@ -11,6 +15,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?=$base_url?>bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?=$base_url?>bower_components/select2/dist/css/select2.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?=$base_url?>bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -45,58 +50,20 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <link rel="shortcut icon" href="<?=$base_url?>kamera_joglo.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="<?= $base_url ?>logo.ico" type="image/x-icon">
   <style type="text/css">
         td img{
           cursor: pointer;
         }
-        .cards tbody {
-          width: 100%;
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 0;
+            border-top: 1px solid #eee;
         }
-        .cards tbody tr {
-          float: left;
-          width: 18%;
-          margin: 1%;
-          border: none;
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-          transition: 0.5s;
-          border-radius: 0px;
-          cursor: pointer;
+        .select2{
+          width:100%!important;
         }
-        .cards tbody tr:hover {
-          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
-        .cards tbody tr td {
-            display: block;
-            border:none;
-            padding: 5px 8px;
-        }
-        .cards tbody tr td:first-child {
-            padding: 0px;
-        }
-         /*
-        .cards tbody tr td img{
-            width: 100%;
-            height: 100%;
-            object-position: center;
-            object-fit: cover;
-            border-top-left-radius: 3px;
-            border-top-right-radius: 3px;
-            border:none;
-        }*/
-        .cards tbody label {
-          display: inline;
-          position: relative;
-          font-size: 85%;
-          top: -0.5rem;
-          float: left;
-          color: #808080;
-          min-width: 4rem;
-          margin-left: 0;
-          margin-right: 0;
-          text-align: left;
-        }
-        
   </style>
 </head>
 <body class="sidebar-mini wysihtml5-supported skin-green ">
@@ -122,13 +89,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?=$base_url?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">Administrator</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?=$base_url?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   Administrator
@@ -154,7 +121,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div> -->
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?=$base_url.'login/admin/logout.php'?>" class="btn btn-default btn-flat">Logout</a>
                 </div>
               </li>
             </ul>
@@ -170,7 +137,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?=$base_url?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Administrator</p>
@@ -180,11 +147,11 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
+        <!-- <li class="active">
           <a href="">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
-        </li>
+        </li> -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-book"></i> <span>Data Buku</span>
@@ -193,8 +160,8 @@
             </span>
           </a>
            <ul class="treeview-menu">
-            <li class=""><a href=""><i class="fa fa-circle-o"></i>Pustaka</a></li>
-            <li class=""><a href=""><i class="fa fa-circle-o"></i>Digital Library</a></li>
+            <li class=""><a href="<?=$base_url.'crudbuku.php'?>"><i class="fa fa-circle-o"></i>Pustaka</a></li>
+            <li class=""><a href="<?=$base_url.'p/?c=back_digilib&r=index'?>"><i class="fa fa-circle-o"></i>Digital Library</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -205,17 +172,17 @@
             </span>
           </a>
            <ul class="treeview-menu">
-            <li class=""><a href=""><i class="fa fa-circle-o"></i>Peminjaman</a></li>
-            <li class=""><a href=""><i class="fa fa-circle-o"></i>Pengembalian</a></li>
+            <li class=""><a href="<?=$base_url.'index.php'?>?page=peminjaman&t=b"><i class="fa fa-circle-o"></i>Peminjaman</a></li>
+            <li class=""><a href="<?=$base_url.'index.php'?>?page=pengembalian&t=b"><i class="fa fa-circle-o"></i>Pengembalian</a></li>
           </ul>
         </li>
-        <li class="">
+        <!-- <li class="">
           <a href="">
-            <i class="fa fa-users"></i> <span>Anggota</span>
+            <i class="fa fa-users"></i> <span>Mahasiswa</span>
           </a>
-        </li>
+        </li> -->
         <li class="">
-          <a href="">
+          <a href="<?=$base_url.'pengguna/pengguna.php'?>">
             <i class="fa fa-user"></i> <span>Pengguna</span>
           </a>
         </li>
