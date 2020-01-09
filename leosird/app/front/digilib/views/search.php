@@ -6,8 +6,8 @@ require_once Url::template_front_header();
 <div class="col-lg-2">
     <label>Kategori</label>
     <?php foreach ($data_kategori as $key => $value): ?>
-    <div class="row">
-        <a
+    <div class="row" style="padding:5px!important">
+        <a class="link-black"
             href="<?=Url::FRONT_DIGILIB_CATEGORY . "&" . $this->model->field_id . "=" . $value[$model_kategori->field_id];?>"><?=$value[$model_kategori->field_nama];?></a>
     </div>
     <?php endforeach;?>
@@ -16,7 +16,7 @@ require_once Url::template_front_header();
     <div class="row">
         <form action="<?=Url::FRONT_DIGILIB_SEARCH;?>" method="POST">
             <div class="col-lg-10">
-                <input type="text" class="form-control" name="query" value="<?= $q; ?>" placeholder="Cari Buku" required />
+                <input type="text" class="form-control" name="q" placeholder="Cari Buku" required />
             </div>
             <button type="submit" name="search" class="btn btn-primary">Cari</button>
         </form>
@@ -32,14 +32,17 @@ require_once Url::template_front_header();
             <div class="card" style="background: white !important">
                 <img width="100%" height="200px" class="card-img-top"
                     src="<?=Url::PATH_DIGILIB_COVER . $value[$this->model->field_cover_name];?>" alt="img">
-                <div class="card-body">
-                    <h5 class="card-title"><?=$value[$this->model->field_judul];?></h5>
+                <div class="card-body" style="padding:15px">
+                    <h5 class="card-title"><b><?=$value[$this->model->field_judul];?></b></h5>
                     <p class="card-text"><?=$value[$this->model->field_pengarang];?></p>
-                    <a href="<?=Url::FRONT_DIGILIB_DETAIL?>&<?=$this->model->field_id;?>=<?=$value[$this->model->field_id]?>"
-                        class="btn btn-default">Detail</a>
-                    <a target="_blank"
-                        href="<?=Url::FRONT_DIGILIB_READ_PDF . "&" . $this->model->field_file_name . "=" . $value[$this->model->field_file_name]?>"
-                        class="btn btn-primary">Download</a>
+                    <div style="display:flex; flex-direction:row; flex-wrap: wrap; align-items:center; justify-content:center">
+                        <a href="<?=Url::FRONT_DIGILIB_DETAIL?>&<?=$this->model->field_id;?>=<?=$value[$this->model->field_id]?>"
+                            class="btn btn-default">Detail</a>
+                        <div style="margin:2px"></div>
+                        <a target="_blank"
+                            href="<?=Url::FRONT_DIGILIB_READ_PDF . "&" . $this->model->field_file_name . "=" . $value[$this->model->field_file_name]?>"
+                            class="btn btn-primary">Download</a>
+                    </div>
                 </div>
             </div>
         </div>
